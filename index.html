@@ -4,7 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>GOUABE Yvan — Développeur Web Yaoundé</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23060A0E' width='100' height='100'/><text x='50' y='65' font-size='70' font-weight='bold' font-family='monospace' fill='%2339FF85' text-anchor='middle'>GY</text></svg>" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
@@ -39,7 +40,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--font);overflow-x:
 #bg3d{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(6,10,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s ease}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(6,10,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(57,255,133,.1)}
 nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .nav-logo{font-family:var(--mono);font-size:.95rem;color:var(--green);letter-spacing:.05em;font-weight:700;display:flex;align-items:center;gap:.5rem}
 .nav-logo i{font-size:1.2rem}
@@ -49,7 +50,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .nav-menu a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--green);transition:width .3s ease}
 .nav-menu a:hover{color:var(--green)}
 .nav-menu a:hover::after{width:100%}
-.nav-btn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1.4rem;border:1.5px solid var(--green);color:var(--green);background:transparent;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;position:relative;overflow:hidden}
+.nav-btn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1.4rem;border:1.5px solid var(--green);color:var(--green);background:transparent;text-decoration:none;position:relative;transition:all .3s ease;cursor:pointer}
 .nav-btn::before{content:'';position:absolute;inset:0;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
 .nav-btn:hover{color:var(--bg);transform:translateY(-2px)}
 .nav-btn:hover::before{transform:scaleX(1)}
@@ -57,7 +58,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 /* ── HERO ── */
 .hero{min-height:100vh;padding:9rem 4rem 5rem;display:flex;align-items:center;position:relative;z-index:10}
 .hero-wrap{display:grid;grid-template-columns:1fr 380px;gap:5rem;align-items:center;width:100%}
-.hero-badge{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:1.8rem;animation:slideInDown .6s ease;background:rgba(57,255,133,.08);padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:50px}
+.hero-badge{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:1.8rem;animation:slideInDown .8s ease 0s both}
 .hero-badge::before{content:'';display:block;width:36px;height:1px;background:var(--green)}
 .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s ease infinite}
 @keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(57,255,133,.5)}50%{opacity:.7;box-shadow:0 0 0 5px transparent}}
@@ -69,11 +70,11 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .hero-desc{font-size:1.05rem;line-height:1.75;color:var(--gray);margin-bottom:2.5rem;max-width:480px;animation:slideInUp .8s ease .3s both}
 .hero-desc strong{color:var(--white)}
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3.5rem;animation:slideInUp .8s ease .4s both}
-.cta-main{padding:1rem 2.5rem;background:var(--green);color:var(--bg);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;position:relative;overflow:hidden;border-radius:4px}
+.cta-main{padding:1rem 2.5rem;background:var(--green);color:var(--bg);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s ease;position:relative;display:inline-flex;align-items:center;gap:.6rem;cursor:pointer}
 .cta-main::before{content:'';position:absolute;inset:0;background:var(--green-dark);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
 .cta-main:hover{box-shadow:0 0 40px var(--green3);transform:translateY(-3px);color:var(--white)}
 .cta-main:hover::before{transform:scaleX(1)}
-.cta-ghost{padding:1rem 2.5rem;border:1.5px solid rgba(255,255,255,.15);color:var(--white);font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;border-radius:4px;position:relative;overflow:hidden}
+.cta-ghost{padding:1rem 2.5rem;border:1.5px solid rgba(255,255,255,.15);color:var(--white);font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s ease;position:relative;display:inline-flex;align-items:center;gap:.6rem;cursor:pointer}
 .cta-ghost::before{content:'';position:absolute;inset:0;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
 .cta-ghost:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
 .cta-ghost:hover::before{transform:scaleX(1)}
@@ -92,7 +93,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .photo-inner img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;filter:contrast(1.08) saturate(0.9);transition:filter .3s ease}
 .photo-outer:hover .photo-inner img{filter:contrast(1.15) saturate(1.1) brightness(1.05)}
 .photo-deco{position:absolute;bottom:-16px;right:-16px;width:100%;height:100%;border:1px solid var(--border);z-index:-1}
-.avail-badge{position:absolute;bottom:16px;left:16px;right:16px;z-index:3;background:rgba(6,10,14,.9);backdrop-filter:blur(12px);border:1px solid var(--border);padding:.8rem 1.1rem;display:flex;align-items:center;gap:.8rem;border-radius:50px;animation:slideUp .6s ease}
+.avail-badge{position:absolute;bottom:16px;left:16px;right:16px;z-index:3;background:rgba(6,10,14,.9);backdrop-filter:blur(12px);border:1px solid var(--border);padding:.8rem 1.1rem;display:flex;align-items:center;gap:.8rem;animation:slideUp .8s ease .6s both}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .avail-dot{width:8px;height:8px;min-width:8px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
 .avail-txt{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--green)}
@@ -136,7 +137,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
 .srv-item{background:var(--card);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:all .3s ease;border-radius:2px}
 .srv-item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green2),transparent);opacity:0;transition:opacity .3s ease}
-.srv-item::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.srv-item::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
 .srv-item:hover{background:var(--card2)}
 .srv-item:hover::before{opacity:1}
 .srv-item:hover::after{transform:scaleX(1)}
@@ -145,7 +146,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .srv-no{font-family:var(--mono);font-size:.63rem;letter-spacing:.15em;color:var(--green);text-transform:uppercase;margin-bottom:.8rem}
 .srv-item h3{font-size:1.08rem;font-weight:700;margin-bottom:.8rem;color:var(--white)}
 .srv-item p{font-size:.86rem;line-height:1.75;color:var(--gray)}
-.srv-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:all .3s;position:relative}
+.srv-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:all .3s ease}
 .srv-link::after{content:'→';transition:transform .3s ease}
 .srv-link:hover{gap:.9rem}
 .srv-link:hover::after{transform:translateX(4px)}
@@ -186,11 +187,11 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .pt-djim{background:linear-gradient(135deg,#0d0a18,#1a0f2e)}
 .proj-body{padding:1.8rem 2rem;position:relative;z-index:3}
 .proj-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
-.ptag{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .65rem;background:var(--green2);color:var(--green);border:1px solid var(--border);border-radius:2px;transition:all .2s ease}
+.ptag{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .65rem;background:var(--green2);color:var(--green);border:1px solid var(--border);border-radius:50px;transition:all .3s ease}
 .ptag:hover{background:var(--green3);border-color:var(--green)}
 .proj-body h3{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.6rem}
 .proj-body p{font-size:.86rem;color:var(--gray);line-height:1.75}
-.proj-cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:all .3s;position:relative}
+.proj-cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:all .3s ease}
 .proj-cta::after{content:'→';transition:transform .3s ease}
 .proj-cta:hover{gap:.9rem}
 .proj-cta:hover::after{transform:translateX(4px)}
@@ -210,7 +211,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .process-steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
 .process-steps::before{content:'';position:absolute;top:23px;left:13%;right:13%;height:2px;background:linear-gradient(90deg,transparent,var(--green),var(--blue),transparent);opacity:.5}
 .ps{padding:2rem 1.5rem;text-align:center;position:relative;z-index:1}
-.ps-num{width:46px;height:46px;border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--mono);font-size:.78rem;color:var(--green);background:var(--bg);position:relative;z-index:1;transition:all .3s ease}
+.ps-num{width:46px;height:46px;border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--mono);font-size:.78rem;color:var(--green);transition:all .3s ease}
 .ps:hover .ps-num{border-color:var(--green);box-shadow:0 0 22px var(--green3);transform:scale(1.15)}
 .ps h4{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.6rem}
 .ps p{font-size:.82rem;color:var(--gray);line-height:1.65}
@@ -219,7 +220,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
 .contact-left p{font-size:.97rem;line-height:1.8;color:var(--gray);margin-bottom:2.5rem}
 .c-links{display:flex;flex-direction:column;gap:.9rem}
-.c-lnk{display:flex;align-items:center;gap:1rem;font-family:var(--mono);font-size:.8rem;color:var(--white);text-decoration:none;padding:1.1rem 1.4rem;border:1px solid var(--border);transition:all .3s ease;background:var(--card);border-radius:4px;position:relative;overflow:hidden}
+.c-lnk{display:flex;align-items:center;gap:1rem;font-family:var(--mono);font-size:.8rem;color:var(--white);text-decoration:none;padding:1.1rem 1.4rem;border:1px solid var(--border);transition:all .3s ease;position:relative;border-radius:4px}
 .c-lnk::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green2),transparent);opacity:0;transition:opacity .3s ease;z-index:-1}
 .c-lnk:hover{border-color:var(--green);color:var(--green);background:var(--card2);transform:translateX(4px)}
 .c-lnk:hover::before{opacity:1}
@@ -230,7 +231,7 @@ nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
 .f-in,.f-ta{width:100%;background:var(--card);border:1px solid var(--border);color:var(--white);font-family:var(--font);font-size:.92rem;padding:1rem 1.3rem;outline:none;transition:all .3s ease;resize:none;border-radius:4px}
 .f-in:focus,.f-ta:focus{border-color:var(--green);box-shadow:0 0 15px var(--green2)}
 .f-ta{min-height:130px}
-.f-send{background:var(--green);color:var(--bg);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1.1rem;border:none;cursor:pointer;width:100%;transition:all .3s ease;border-radius:4px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.f-send{background:var(--green);color:var(--bg);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1.1rem;border:none;cursor:pointer;width:100%;position:relative;transition:all .3s ease;border-radius:4px}
 .f-send::before{content:'';position:absolute;inset:0;background:var(--green-dark);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
 .f-send:hover{box-shadow:0 0 40px var(--green3);transform:translateY(-2px)}
 .f-send:hover::before{transform:scaleX(1)}
@@ -254,7 +255,7 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
 .rv-r.on{opacity:1;transform:translateX(0)}
 
 /* ── BADGE TECH ── */
-.tech-badge{display:inline-block;background:rgba(57,255,133,.08);border:1px solid var(--border);color:var(--green);padding:.35rem .8rem;border-radius:50px;font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-right:.5rem;margin-bottom:.5rem;transition:all .2s ease}
+.tech-badge{display:inline-block;background:rgba(57,255,133,.08);border:1px solid var(--border);color:var(--green);padding:.35rem .8rem;border-radius:50px;font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;transition:all .3s ease}
 .tech-badge:hover{background:rgba(57,255,133,.15);border-color:var(--green)}
 
 /* ── RESPONSIVE ── */
@@ -313,7 +314,7 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
         <span class="h-accent">Apps</span>
       </h1>
       <p class="hero-desc">
-        Je suis <strong>GOUABE Yvan</strong>, développeur web de <strong>19 ans</strong> basé à <strong>Yaoundé, Cameroun</strong>. Je transforme vos idées en produits digitaux percutants qui génèrent des résultats.
+        Je suis <strong>GOUABE Yvan</strong>, développeur web de <strong>19 ans</strong> basé à <strong>Yaoundé, Cameroun</strong>. Je transforme vos idées en produits digitaux percutants qui génèrent de la croissance.
       </p>
       <div class="hero-ctas">
         <!-- <a href="#projects" class="cta-main"><i class="fas fa-arrow-right"></i>Voir mes projets</a> -->
@@ -357,8 +358,8 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="tick"><i class="fas fa-code"></i>HTML / CSS</span><span class="tick"><i class="fas fa-code"></i>JavaScript</span><span class="tick"><i class="fab fa-react"></i>React.js</span><span class="tick"><i class="fab fa-wordpress"></i>WordPress</span><span class="tick"><i class="fas fa-shopping-cart"></i>E-Commerce</span><span class="tick"><i class="fas fa-palette"></i>UI/UX Design</span><span class="tick"><i class="fas fa-rocket"></i>Landing Pages</span><span class="tick"><i class="fab fa-figma"></i>Figma</span><span class="tick"><i class="fas fa-star"></i>DJIM Startup</span><span class="tick"><i class="fas fa-map-marker-alt"></i>Yaoundé</span>
-    <span class="tick"><i class="fas fa-code"></i>HTML / CSS</span><span class="tick"><i class="fas fa-code"></i>JavaScript</span><span class="tick"><i class="fab fa-react"></i>React.js</span><span class="tick"><i class="fab fa-wordpress"></i>WordPress</span><span class="tick"><i class="fas fa-shopping-cart"></i>E-Commerce</span><span class="tick"><i class="fas fa-palette"></i>UI/UX Design</span><span class="tick"><i class="fas fa-rocket"></i>Landing Pages</span><span class="tick"><i class="fab fa-figma"></i>Figma</span><span class="tick"><i class="fas fa-star"></i>DJIM Startup</span><span class="tick"><i class="fas fa-map-marker-alt"></i>Yaoundé</span>
+    <span class="tick"><i class="fas fa-code"></i>HTML / CSS</span><span class="tick"><i class="fas fa-code"></i>JavaScript</span><span class="tick"><i class="fab fa-react"></i>React.js</span><span class="tick"><i class="fab fa-wordpress"></i>WordPress</span><span class="tick"><i class="fas fa-database"></i>Node.js / SQL</span><span class="tick"><i class="fab fa-figma"></i>Figma Design</span>
+    <span class="tick"><i class="fas fa-code"></i>HTML / CSS</span><span class="tick"><i class="fas fa-code"></i>JavaScript</span><span class="tick"><i class="fab fa-react"></i>React.js</span><span class="tick"><i class="fab fa-wordpress"></i>WordPress</span><span class="tick"><i class="fas fa-database"></i>Node.js / SQL</span><span class="tick"><i class="fab fa-figma"></i>Figma Design</span>
   </div>
 </div>
 
@@ -369,7 +370,7 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
     <div class="rv-l">
       <h2 class="sec-h">Passionné par le<br><em>web depuis toujours</em></h2>
       <div class="about-text">
-        <p>Je suis <strong>GOUABE Yvan</strong>, développeur web freelance de 19 ans basé à <strong>Yaoundé, Cameroun</strong>. Autodidacte ambitieux, j'ai acquis mes compétences par la pratique intensive et un stage formateur chez <strong>DJIM Startup</strong>.</p>
+        <p>Je suis <strong>GOUABE Yvan</strong>, développeur web freelance de 19 ans basé à <strong>Yaoundé, Cameroun</strong>. Autodidacte ambitieux, j'ai acquis mes compétences par la pratique et l'apprentissage continu.</p>
         <p>Ma mission est d'aider les <strong>entreprises camerounaises et internationales</strong> à avoir une présence web sérieuse et moderne qui génère des clients et de la croissance.</p>
         <p>Chaque projet est une occasion de créer quelque chose d'unique avec du code propre, un design soigné et une vraie compréhension des besoins du client.</p>
       </div>
@@ -385,12 +386,12 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
     <div class="rv-r">
       <div class="skills-box">
         <div class="skills-ttl"><i class="fas fa-cogs"></i> Stack technique</div>
-        <div class="skill"><div class="skill-row"><span><i class="fas fa-code"></i> HTML / CSS</span><span class="skill-pct">95%</span></div><div class="bar"><div class="bar-fill" style="width:95%"></div></div></div>
-        <div class="skill"><div class="skill-row"><span><i class="fab fa-js"></i> JavaScript</span><span class="skill-pct">80%</span></div><div class="bar"><div class="bar-fill" style="width:80%;animation-delay:.1s"></div></div></div>
-        <div class="skill"><div class="skill-row"><span><i class="fab fa-react"></i> React.js</span><span class="skill-pct">72%</span></div><div class="bar"><div class="bar-fill" style="width:72%;animation-delay:.2s"></div></div></div>
-        <div class="skill"><div class="skill-row"><span><i class="fab fa-wordpress"></i> WordPress</span><span class="skill-pct">90%</span></div><div class="bar"><div class="bar-fill" style="width:90%;animation-delay:.3s"></div></div></div>
-        <div class="skill"><div class="skill-row"><span><i class="fab fa-figma"></i> Figma / UI Design</span><span class="skill-pct">72%</span></div><div class="bar"><div class="bar-fill" style="width:72%;animation-delay:.4s"></div></div></div>
-        <div class="skill"><div class="skill-row"><span><i class="fas fa-database"></i> Node.js / SQL</span><span class="skill-pct">65%</span></div><div class="bar"><div class="bar-fill" style="width:65%;animation-delay:.5s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fas fa-code"></i> HTML / CSS</span><span class="skill-pct">95%</span></div><div class="bar"><div class="bar-fill" style="width:95%;animation-delay:.1s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-js"></i> JavaScript</span><span class="skill-pct">80%</span></div><div class="bar"><div class="bar-fill" style="width:80%;animation-delay:.2s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-react"></i> React.js</span><span class="skill-pct">72%</span></div><div class="bar"><div class="bar-fill" style="width:72%;animation-delay:.3s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-wordpress"></i> WordPress</span><span class="skill-pct">90%</span></div><div class="bar"><div class="bar-fill" style="width:90%;animation-delay:.4s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-figma"></i> Figma / UI Design</span><span class="skill-pct">72%</span></div><div class="bar"><div class="bar-fill" style="width:72%;animation-delay:.5s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fas fa-database"></i> Node.js / SQL</span><span class="skill-pct">65%</span></div><div class="bar"><div class="bar-fill" style="width:65%;animation-delay:.6s"></div></div></div>
       </div>
     </div>
   </div>
@@ -478,13 +479,6 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
             <div class="cert-org">Formation autodidacte</div>
           </div>
         </div>
-        <!-- <div class="cert rv">
-          <div class="cert-ico"><i class="fas fa-rocket"></i></div>
-          <div>
-            <div class="cert-name">5+ Projets Réalisés</div>
-            <div class="cert-org">Clients satisfaits</div>
-          </div>
-        </div> -->
         <div class="cert rv">
           <div class="cert-ico"><i class="fas fa-code"></i></div>
           <div>
@@ -496,63 +490,6 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
     </div>
   </div>
 </section>
-
-<!-- PROJECTS
-<section class="sec dark" id="projects">
-  <div class="sec-tag"><i class="fas fa-project-diagram"></i>Projets</div>
-  <h2 class="sec-h">Mes <em>réalisations</em></h2>
-  <div class="proj-grid">
-    <div class="proj-card rv">
-      <div class="proj-thumb pt-restaurant">🍽️</div>
-      <div class="proj-body">
-        <div class="proj-tags">
-          <span class="ptag"><i class="fas fa-code"></i> HTML/CSS</span>
-          <span class="ptag"><i class="fab fa-react"></i> React</span>
-        </div>
-        <h3>Restaurant Moderne</h3>
-        <p>Site vitrine pour restaurant avec menu interactif, galerie photos et système de réservation.</p>
-        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Voir le projet</a>
-      </div>
-    </div>
-    <div class="proj-card rv">
-      <div class="proj-thumb pt-ecom">🛍️</div>
-      <div class="proj-body">
-        <div class="proj-tags">
-          <span class="ptag"><i class="fab fa-wordpress"></i> WordPress</span>
-          <span class="ptag"><i class="fas fa-shopping-cart"></i> WooCommerce</span>
-        </div>
-        <h3>Boutique E-Commerce</h3>
-        <p>Plateforme de vente en ligne avec panier, paiement et gestion de commandes.</p>
-        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Voir le projet</a>
-      </div>
-    </div>
-    <div class="proj-card rv">
-      <div class="proj-thumb pt-clinic">⚕️</div>
-      <div class="proj-body">
-        <div class="proj-tags">
-          <span class="ptag"><i class="fas fa-code"></i> HTML/CSS</span>
-          <span class="ptag"><i class="fab fa-js"></i> JavaScript</span>
-        </div>
-        <h3>Clinique Médicale</h3>
-        <p>Site professionnel pour clinique avec prise de rendez-vous en ligne et informations services.</p>
-        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Voir le projet</a>
-      </div>
-    </div>
-    <div class="proj-card wide rv">
-      <div class="proj-thumb pt-djim">✨</div>
-      <div class="proj-body">
-        <div class="proj-tags">
-          <span class="ptag"><i class="fas fa-star"></i> En cours</span>
-          <span class="ptag"><i class="fab fa-react"></i> React</span>
-          <span class="ptag"><i class="fas fa-database"></i> Node.js</span>
-        </div>
-        <h3>Projets DJIM Startup</h3>
-        <p>Développement de solutions web modernes pour clients de DJIM Startup. Applications React, WordPress et e-commerce en cours de réalisation.</p>
-        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Discuter de vos besoins</a>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 <!-- WHY ME -->
 <section class="sec" id="why">
@@ -673,7 +610,6 @@ footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justi
     <a href="#home"><i class="fas fa-home"></i>Accueil</a>
     <a href="#services"><i class="fas fa-briefcase"></i>Services</a>
     <a href="#education"><i class="fas fa-graduation-cap"></i>Formation</a>
-    <!-- <a href="#projects"><i class="fas fa-project-diagram"></i>Projets</a> -->
     <a href="#contact"><i class="fas fa-envelope"></i>Contact</a>
   </nav>
 </footer>
