@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GOUABE Yvan — Développeur Web Yaoundé</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{
+  --green:#39FF85;
+  --green2:rgba(57,255,133,.12);
+  --green3:rgba(57,255,133,.25);
+  --green-dark:#2dd45f;
+  --blue:#00D9FF;
+  --purple:#9D4EDD;
+  --bg:#060A0E;
+  --bg2:#0A1018;
+  --card:#0E1620;
+  --card2:#131E2C;
+  --border:rgba(57,255,133,.18);
+  --white:#F0F6FA;
+  --gray:#8BA0B0;
+  --gray-dark:#5a6b7a;
+  --font:'Syne',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--white);font-family:var(--font);overflow-x:hidden;cursor:none;line-height:1.6}
+
+/* ── CURSOR ── */
+#dot{width:8px;height:8px;background:var(--green);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;mix-blend-mode:screen}
+#ring{width:32px;height:32px;border:1.5px solid var(--green);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.4;transition:all .15s ease}
+
+/* ── 3D BG ── */
+#bg3d{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(6,10,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s ease}
+nav.scrolled{padding:0.8rem 4rem;box-shadow:0 4px 20px rgba(57,255,133,.1)}
+.nav-logo{font-family:var(--mono);font-size:.95rem;color:var(--green);letter-spacing:.05em;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.nav-logo i{font-size:1.2rem}
+.nav-logo span{color:var(--white)}
+.nav-menu{display:flex;gap:2rem;list-style:none}
+.nav-menu a{font-family:var(--mono);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:all .3s;position:relative}
+.nav-menu a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--green);transition:width .3s ease}
+.nav-menu a:hover{color:var(--green)}
+.nav-menu a:hover::after{width:100%}
+.nav-btn{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1.4rem;border:1.5px solid var(--green);color:var(--green);background:transparent;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;position:relative;overflow:hidden}
+.nav-btn::before{content:'';position:absolute;inset:0;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
+.nav-btn:hover{color:var(--bg);transform:translateY(-2px)}
+.nav-btn:hover::before{transform:scaleX(1)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;padding:9rem 4rem 5rem;display:flex;align-items:center;position:relative;z-index:10}
+.hero-wrap{display:grid;grid-template-columns:1fr 380px;gap:5rem;align-items:center;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:1.8rem;animation:slideInDown .6s ease;background:rgba(57,255,133,.08);padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:50px}
+.hero-badge::before{content:'';display:block;width:36px;height:1px;background:var(--green)}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(57,255,133,.5)}50%{opacity:.7;box-shadow:0 0 0 5px transparent}}
+@keyframes slideInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:clamp(3.5rem,7vw,7.5rem);font-weight:700;line-height:.88;letter-spacing:-.03em;margin-bottom:1.8rem;animation:slideInUp .8s ease .2s both}
+@keyframes slideInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.h-stroke{-webkit-text-stroke:2px rgba(255,255,255,.15);color:transparent}
+.h-accent{color:var(--green);background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.05rem;line-height:1.75;color:var(--gray);margin-bottom:2.5rem;max-width:480px;animation:slideInUp .8s ease .3s both}
+.hero-desc strong{color:var(--white)}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3.5rem;animation:slideInUp .8s ease .4s both}
+.cta-main{padding:1rem 2.5rem;background:var(--green);color:var(--bg);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;position:relative;overflow:hidden;border-radius:4px}
+.cta-main::before{content:'';position:absolute;inset:0;background:var(--green-dark);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
+.cta-main:hover{box-shadow:0 0 40px var(--green3);transform:translateY(-3px);color:var(--white)}
+.cta-main:hover::before{transform:scaleX(1)}
+.cta-ghost{padding:1rem 2.5rem;border:1.5px solid rgba(255,255,255,.15);color:var(--white);font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;border-radius:4px;position:relative;overflow:hidden}
+.cta-ghost::before{content:'';position:absolute;inset:0;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
+.cta-ghost:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+.cta-ghost:hover::before{transform:scaleX(1)}
+.cta-ghost:hover{color:var(--bg)}
+.hero-stats{display:flex;gap:3rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap;animation:slideInUp .8s ease .5s both}
+.stat-val{font-family:var(--mono);font-size:2.2rem;font-weight:700;color:var(--green);line-height:1}
+.stat-lbl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-top:.3rem}
+
+/* ── PHOTO ── */
+.photo-col{display:flex;justify-content:center;align-items:center;animation:slideInRight .8s ease .3s both}
+@keyframes slideInRight{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:translateX(0)}}
+.photo-outer{position:relative;width:320px;height:420px}
+.photo-border{position:absolute;inset:-3px;background:linear-gradient(135deg,var(--green) 0%,var(--blue) 50%,rgba(157,78,221,.3) 100%);border-radius:2px;z-index:0;animation:gradientShift 6s ease infinite}
+@keyframes gradientShift{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(10deg)}}
+.photo-inner{position:absolute;inset:3px;overflow:hidden;z-index:1;background:var(--card);border-radius:2px}
+.photo-inner img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;filter:contrast(1.08) saturate(0.9);transition:filter .3s ease}
+.photo-outer:hover .photo-inner img{filter:contrast(1.15) saturate(1.1) brightness(1.05)}
+.photo-deco{position:absolute;bottom:-16px;right:-16px;width:100%;height:100%;border:1px solid var(--border);z-index:-1}
+.avail-badge{position:absolute;bottom:16px;left:16px;right:16px;z-index:3;background:rgba(6,10,14,.9);backdrop-filter:blur(12px);border:1px solid var(--border);padding:.8rem 1.1rem;display:flex;align-items:center;gap:.8rem;border-radius:50px;animation:slideUp .6s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.avail-dot{width:8px;height:8px;min-width:8px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+.avail-txt{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--green)}
+
+/* ── TICKER ── */
+.ticker{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);padding:.85rem 0;position:relative;z-index:10}
+.ticker-inner{display:flex;gap:2.5rem;animation:scroll 25s linear infinite;white-space:nowrap}
+.tick{font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);display:flex;align-items:center;gap:.9rem;flex-shrink:0;transition:color .3s ease}
+.tick::before{content:'◆';color:var(--green);font-size:.5rem}
+.tick:hover{color:var(--green)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ── SECTION BASE ── */
+.sec{padding:7rem 4rem;position:relative;z-index:10}
+.sec.dark{background:var(--bg2)}
+.sec-tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.sec-tag::before{content:'';display:block;width:24px;height:1px;background:var(--green)}
+.sec-h{font-size:clamp(2.2rem,4vw,3.8rem);font-weight:800;letter-spacing:-.025em;line-height:1;margin-bottom:4rem}
+.sec-h em{color:var(--green);font-style:normal;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start}
+.about-text p{font-size:.97rem;line-height:1.85;color:var(--gray);margin-bottom:1.3rem}
+.about-text p strong{color:var(--white);font-weight:700}
+.about-meta{margin-top:2.2rem;display:flex;flex-direction:column;gap:.9rem}
+.meta-row{display:grid;grid-template-columns:110px 1fr;gap:.8rem;font-family:var(--mono);font-size:.78rem;align-items:center}
+.meta-k{color:var(--green)}
+.meta-v{color:var(--gray);padding:.4rem .8rem;background:rgba(57,255,133,.05);border-left:2px solid var(--green);border-radius:2px;transition:all .3s ease}
+.meta-row:hover .meta-v{background:rgba(57,255,133,.12);transform:translateX(4px)}
+.skills-box{background:var(--card);border:1px solid var(--border);padding:2.5rem;border-radius:4px;transition:all .3s ease}
+.skills-box:hover{border-color:var(--green);box-shadow:0 0 20px var(--green2)}
+.skills-ttl{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:2rem}
+.skill{margin-bottom:1.4rem}
+.skill-row{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.55rem;color:var(--white)}
+.skill-pct{font-family:var(--mono);font-size:.73rem;color:var(--green)}
+.bar{height:3px;background:rgba(255,255,255,.07);position:relative;border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:2px;position:absolute;left:0;top:0;animation:grow 1.8s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes grow{from{width:0}}
+
+/* ── SERVICES ── */
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.srv-item{background:var(--card);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:all .3s ease;border-radius:2px}
+.srv-item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green2),transparent);opacity:0;transition:opacity .3s ease}
+.srv-item::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.srv-item:hover{background:var(--card2)}
+.srv-item:hover::before{opacity:1}
+.srv-item:hover::after{transform:scaleX(1)}
+.srv-ico{font-size:2.5rem;margin-bottom:1.5rem;display:block;color:var(--green);transition:all .3s ease}
+.srv-item:hover .srv-ico{color:var(--blue);transform:scale(1.15) rotate(5deg)}
+.srv-no{font-family:var(--mono);font-size:.63rem;letter-spacing:.15em;color:var(--green);text-transform:uppercase;margin-bottom:.8rem}
+.srv-item h3{font-size:1.08rem;font-weight:700;margin-bottom:.8rem;color:var(--white)}
+.srv-item p{font-size:.86rem;line-height:1.75;color:var(--gray)}
+.srv-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:all .3s;position:relative}
+.srv-link::after{content:'→';transition:transform .3s ease}
+.srv-link:hover{gap:.9rem}
+.srv-link:hover::after{transform:translateX(4px)}
+
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:1.5rem;padding-bottom:2.5rem;position:relative}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:19px;top:42px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--border),transparent)}
+.tl-dot{width:40px;min-width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;background:var(--card);position:relative;z-index:1;transition:all .3s ease}
+.tl-item:hover .tl-dot{border-color:var(--green);box-shadow:0 0 18px var(--green3);transform:scale(1.2)}
+.tl-year{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.45rem}
+.tl-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.35rem}
+.tl-place{font-size:.84rem;color:var(--green);margin-bottom:.5rem;font-family:var(--mono)}
+.tl-desc{font-size:.83rem;color:var(--gray);line-height:1.7}
+.certs{display:flex;flex-direction:column;gap:.9rem}
+.cert-ttl{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem}
+.cert{background:var(--card);border:1px solid var(--border);padding:1.3rem 1.6rem;display:flex;align-items:center;gap:1.2rem;transition:all .3s ease;border-radius:4px;cursor:pointer}
+.cert:hover{border-color:var(--green);transform:translateX(6px);box-shadow:0 0 15px var(--green2)}
+.cert-ico{font-size:1.5rem;min-width:2rem;text-align:center;color:var(--green);transition:all .3s ease}
+.cert:hover .cert-ico{transform:scale(1.2) rotate(10deg)}
+.cert-name{font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:.2rem}
+.cert-org{font-family:var(--mono);font-size:.68rem;color:var(--green);letter-spacing:.06em}
+
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.proj-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:all .3s ease;border-radius:4px;position:relative}
+.proj-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green2),transparent);opacity:0;transition:opacity .3s ease;z-index:2}
+.proj-card:hover{border-color:var(--green);transform:translateY(-8px);box-shadow:0 10px 30px rgba(57,255,133,.15)}
+.proj-card:hover::before{opacity:1}
+.proj-card.wide{grid-column:span 2}
+.proj-thumb{height:200px;display:flex;align-items:center;justify-content:center;font-size:4.5rem;position:relative;overflow:hidden}
+.proj-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(57,255,133,.1));opacity:0;transition:opacity .3s ease}
+.proj-card:hover .proj-thumb::after{opacity:1}
+.pt-restaurant{background:linear-gradient(135deg,#06120c,#0a2016)}
+.pt-ecom{background:linear-gradient(135deg,#060d1a,#0a1530)}
+.pt-clinic{background:linear-gradient(135deg,#061212,#0a2020)}
+.pt-djim{background:linear-gradient(135deg,#0d0a18,#1a0f2e)}
+.proj-body{padding:1.8rem 2rem;position:relative;z-index:3}
+.proj-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.ptag{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .65rem;background:var(--green2);color:var(--green);border:1px solid var(--border);border-radius:2px;transition:all .2s ease}
+.ptag:hover{background:var(--green3);border-color:var(--green)}
+.proj-body h3{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.6rem}
+.proj-body p{font-size:.86rem;color:var(--gray);line-height:1.75}
+.proj-cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:all .3s;position:relative}
+.proj-cta::after{content:'→';transition:transform .3s ease}
+.proj-cta:hover{gap:.9rem}
+.proj-cta:hover::after{transform:translateX(4px)}
+
+/* ── WHY ME ── */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.why-card{background:var(--card);border:1px solid var(--border);padding:2rem 1.5rem;text-align:center;transition:all .3s ease;position:relative;overflow:hidden;border-radius:4px}
+.why-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green2),transparent);opacity:0;transition:opacity .3s ease}
+.why-card:hover{border-color:var(--green);transform:translateY(-8px);box-shadow:0 10px 25px var(--green2)}
+.why-card:hover::before{opacity:1}
+.why-ico{font-size:2.5rem;margin-bottom:1.2rem;display:block;position:relative;z-index:1;color:var(--green);transition:all .3s ease}
+.why-card:hover .why-ico{transform:scale(1.2) rotate(-10deg);color:var(--blue)}
+.why-card h4{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.6rem;position:relative;z-index:1}
+.why-card p{font-size:.82rem;color:var(--gray);line-height:1.65;position:relative;z-index:1}
+
+/* ── PROCESS ── */
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.process-steps::before{content:'';position:absolute;top:23px;left:13%;right:13%;height:2px;background:linear-gradient(90deg,transparent,var(--green),var(--blue),transparent);opacity:.5}
+.ps{padding:2rem 1.5rem;text-align:center;position:relative;z-index:1}
+.ps-num{width:46px;height:46px;border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--mono);font-size:.78rem;color:var(--green);background:var(--bg);position:relative;z-index:1;transition:all .3s ease}
+.ps:hover .ps-num{border-color:var(--green);box-shadow:0 0 22px var(--green3);transform:scale(1.15)}
+.ps h4{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.6rem}
+.ps p{font-size:.82rem;color:var(--gray);line-height:1.65}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-left p{font-size:.97rem;line-height:1.8;color:var(--gray);margin-bottom:2.5rem}
+.c-links{display:flex;flex-direction:column;gap:.9rem}
+.c-lnk{display:flex;align-items:center;gap:1rem;font-family:var(--mono);font-size:.8rem;color:var(--white);text-decoration:none;padding:1.1rem 1.4rem;border:1px solid var(--border);transition:all .3s ease;background:var(--card);border-radius:4px;position:relative;overflow:hidden}
+.c-lnk::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green2),transparent);opacity:0;transition:opacity .3s ease;z-index:-1}
+.c-lnk:hover{border-color:var(--green);color:var(--green);background:var(--card2);transform:translateX(4px)}
+.c-lnk:hover::before{opacity:1}
+.c-lnk i{flex-shrink:0;min-width:18px;color:var(--green);transition:all .3s ease;font-size:1.1rem}
+.c-lnk:hover i{transform:scale(1.2)}
+.c-form{display:flex;flex-direction:column;gap:1.2rem}
+.f-lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:.5rem}
+.f-in,.f-ta{width:100%;background:var(--card);border:1px solid var(--border);color:var(--white);font-family:var(--font);font-size:.92rem;padding:1rem 1.3rem;outline:none;transition:all .3s ease;resize:none;border-radius:4px}
+.f-in:focus,.f-ta:focus{border-color:var(--green);box-shadow:0 0 15px var(--green2)}
+.f-ta{min-height:130px}
+.f-send{background:var(--green);color:var(--bg);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1.1rem;border:none;cursor:pointer;width:100%;transition:all .3s ease;border-radius:4px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.f-send::before{content:'';position:absolute;inset:0;background:var(--green-dark);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:-1}
+.f-send:hover{box-shadow:0 0 40px var(--green3);transform:translateY(-2px)}
+.f-send:hover::before{transform:scaleX(1)}
+
+/* ── FOOTER ── */
+footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:10}
+.f-copy{font-family:var(--mono);font-size:.72rem;color:var(--gray)}
+.f-copy strong{color:var(--green)}
+.f-nav{display:flex;gap:1.8rem}
+.f-nav a{font-family:var(--mono);font-size:.68rem;color:var(--gray);text-decoration:none;transition:all .3s ease;letter-spacing:.1em;text-transform:uppercase;position:relative}
+.f-nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--green);transition:width .3s ease}
+.f-nav a:hover{color:var(--green)}
+.f-nav a:hover::after{width:100%}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(32px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv-l{opacity:0;transform:translateX(-32px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1)}
+.rv-l.on{opacity:1;transform:translateX(0)}
+.rv-r{opacity:0;transform:translateX(32px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1)}
+.rv-r.on{opacity:1;transform:translateX(0)}
+
+/* ── BADGE TECH ── */
+.tech-badge{display:inline-block;background:rgba(57,255,133,.08);border:1px solid var(--border);color:var(--green);padding:.35rem .8rem;border-radius:50px;font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-right:.5rem;margin-bottom:.5rem;transition:all .2s ease}
+.tech-badge:hover{background:rgba(57,255,133,.15);border-color:var(--green)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  nav{padding:1.2rem 2rem}
+  .nav-menu,.nav-btn{display:none}
+  .sec,.hero{padding:5rem 1.8rem}
+  .hero{padding-top:7rem}
+  .hero-wrap,.about-grid,.edu-grid,.contact-grid{grid-template-columns:1fr;gap:3rem}
+  .photo-col{order:-1}
+  .photo-outer{width:260px;height:340px}
+  .srv-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .proj-grid{grid-template-columns:1fr}
+  .proj-card.wide{grid-column:span 1}
+  footer{flex-direction:column;gap:1.2rem;text-align:center;padding:2rem}
+}
+@media(max-width:600px){
+  .srv-grid,.why-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.8rem}
+  .process-steps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg3d"></canvas>
+<div id="dot"></div>
+<div id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><i class="fas fa-code"></i>GY<span>.</span></div>
+  <ul class="nav-menu">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#education">Formation</a></li>
+    <!-- <li><a href="#projects">Projets</a></li> -->
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn"><i class="fas fa-envelope"></i>Me contacter</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-wrap">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Disponible pour des missions
+      </div>
+      <h1>
+        Développeur
+        <span class="h-stroke">Web &amp;</span><br>
+        <span class="h-accent">Apps</span>
+      </h1>
+      <p class="hero-desc">
+        Je suis <strong>GOUABE Yvan</strong>, développeur web de <strong>19 ans</strong> basé à <strong>Yaoundé, Cameroun</strong>. Je transforme vos idées en produits digitaux percutants qui génèrent des résultats.
+      </p>
+      <div class="hero-ctas">
+        <!-- <a href="#projects" class="cta-main"><i class="fas fa-arrow-right"></i>Voir mes projets</a> -->
+        <a href="#contact" class="cta-ghost"><i class="fas fa-handshake"></i>Travailler ensemble</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">19</div>
+          <div class="stat-lbl">Ans passionné</div>
+        </div>
+        <div>
+          <div class="stat-val">5+</div>
+          <div class="stat-lbl">Projets réalisés</div>
+        </div>
+        <div>
+          <div class="stat-val">100%</div>
+          <div class="stat-lbl">Satisfaction</div>
+        </div>
+        <div>
+          <div class="stat-val">CMR</div>
+          <div class="stat-lbl">Yaoundé 🇨🇲</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-col">
+      <div class="photo-outer">
+        <div class="photo-border"></div>
+        <div class="photo-inner">
+          <img src="photo-profil.png" alt="GOUABE Yvan"/>
+        </div>
+        <div class="photo-deco"></div>
+        <div class="avail-badge">
+          <span class="avail-dot"></span>
+          <span class="avail-txt">Disponible pour travailler</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="tick"><i class="fas fa-code"></i>HTML / CSS</span><span class="tick"><i class="fas fa-code"></i>JavaScript</span><span class="tick"><i class="fab fa-react"></i>React.js</span><span class="tick"><i class="fab fa-wordpress"></i>WordPress</span><span class="tick"><i class="fas fa-shopping-cart"></i>E-Commerce</span><span class="tick"><i class="fas fa-palette"></i>UI/UX Design</span><span class="tick"><i class="fas fa-rocket"></i>Landing Pages</span><span class="tick"><i class="fab fa-figma"></i>Figma</span><span class="tick"><i class="fas fa-star"></i>DJIM Startup</span><span class="tick"><i class="fas fa-map-marker-alt"></i>Yaoundé</span>
+    <span class="tick"><i class="fas fa-code"></i>HTML / CSS</span><span class="tick"><i class="fas fa-code"></i>JavaScript</span><span class="tick"><i class="fab fa-react"></i>React.js</span><span class="tick"><i class="fab fa-wordpress"></i>WordPress</span><span class="tick"><i class="fas fa-shopping-cart"></i>E-Commerce</span><span class="tick"><i class="fas fa-palette"></i>UI/UX Design</span><span class="tick"><i class="fas fa-rocket"></i>Landing Pages</span><span class="tick"><i class="fab fa-figma"></i>Figma</span><span class="tick"><i class="fas fa-star"></i>DJIM Startup</span><span class="tick"><i class="fas fa-map-marker-alt"></i>Yaoundé</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="sec-tag"><i class="fas fa-user"></i>Qui suis-je</div>
+  <div class="about-grid">
+    <div class="rv-l">
+      <h2 class="sec-h">Passionné par le<br><em>web depuis toujours</em></h2>
+      <div class="about-text">
+        <p>Je suis <strong>GOUABE Yvan</strong>, développeur web freelance de 19 ans basé à <strong>Yaoundé, Cameroun</strong>. Autodidacte ambitieux, j'ai acquis mes compétences par la pratique intensive et un stage formateur chez <strong>DJIM Startup</strong>.</p>
+        <p>Ma mission est d'aider les <strong>entreprises camerounaises et internationales</strong> à avoir une présence web sérieuse et moderne qui génère des clients et de la croissance.</p>
+        <p>Chaque projet est une occasion de créer quelque chose d'unique avec du code propre, un design soigné et une vraie compréhension des besoins du client.</p>
+      </div>
+      <div class="about-meta">
+        <div class="meta-row"><span class="meta-k"><i class="fas fa-code"></i> Nom</span><span class="meta-v">GOUABE Yvan</span></div>
+        <div class="meta-row"><span class="meta-k"><i class="fas fa-birthday-cake"></i> Âge</span><span class="meta-v">19 ans</span></div>
+        <div class="meta-row"><span class="meta-k"><i class="fas fa-map-pin"></i> Lieu</span><span class="meta-v">Yaoundé, Cameroun 🇨🇲</span></div>
+        <div class="meta-row"><span class="meta-k"><i class="fas fa-briefcase"></i> Statut</span><span class="meta-v">Freelance · Disponible</span></div>
+        <div class="meta-row"><span class="meta-k"><i class="fas fa-graduation-cap"></i> Expérience</span><span class="meta-v">Stage — DJIM Startup</span></div>
+        <div class="meta-row"><span class="meta-k"><i class="fas fa-language"></i> Langues</span><span class="meta-v">Français · Anglais</span></div>
+      </div>
+    </div>
+    <div class="rv-r">
+      <div class="skills-box">
+        <div class="skills-ttl"><i class="fas fa-cogs"></i> Stack technique</div>
+        <div class="skill"><div class="skill-row"><span><i class="fas fa-code"></i> HTML / CSS</span><span class="skill-pct">95%</span></div><div class="bar"><div class="bar-fill" style="width:95%"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-js"></i> JavaScript</span><span class="skill-pct">80%</span></div><div class="bar"><div class="bar-fill" style="width:80%;animation-delay:.1s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-react"></i> React.js</span><span class="skill-pct">72%</span></div><div class="bar"><div class="bar-fill" style="width:72%;animation-delay:.2s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-wordpress"></i> WordPress</span><span class="skill-pct">90%</span></div><div class="bar"><div class="bar-fill" style="width:90%;animation-delay:.3s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fab fa-figma"></i> Figma / UI Design</span><span class="skill-pct">72%</span></div><div class="bar"><div class="bar-fill" style="width:72%;animation-delay:.4s"></div></div></div>
+        <div class="skill"><div class="skill-row"><span><i class="fas fa-database"></i> Node.js / SQL</span><span class="skill-pct">65%</span></div><div class="bar"><div class="bar-fill" style="width:65%;animation-delay:.5s"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec dark" id="services">
+  <div class="sec-tag"><i class="fas fa-briefcase"></i>Services</div>
+  <h2 class="sec-h">Ce que je <em>propose</em></h2>
+  <div class="srv-grid">
+    <div class="srv-item rv">
+      <div class="srv-ico"><i class="fas fa-globe"></i></div>
+      <div class="srv-no">01</div>
+      <h3>Sites Vitrines</h3>
+      <p>Présence web professionnelle pour votre entreprise. Design moderne, responsive et optimisé pour les moteurs de recherche.</p>
+      <a href="#contact" class="srv-link">En savoir plus</a>
+    </div>
+    <div class="srv-item rv">
+      <div class="srv-ico"><i class="fas fa-shopping-cart"></i></div>
+      <div class="srv-no">02</div>
+      <h3>E-Commerce</h3>
+      <p>Boutiques en ligne complètes avec intégration de paiement, gestion de stock et interface d'administration.</p>
+      <a href="#contact" class="srv-link">En savoir plus</a>
+    </div>
+    <div class="srv-item rv">
+      <div class="srv-ico"><i class="fas fa-mobile-alt"></i></div>
+      <div class="srv-no">03</div>
+      <h3>Applications Web</h3>
+      <p>Applications web modernes et performantes avec React, Node.js et bases de données scalables.</p>
+      <a href="#contact" class="srv-link">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="sec" id="education">
+  <div class="sec-tag"><i class="fas fa-graduation-cap"></i>Formation & Expérience</div>
+  <h2 class="sec-h">Mon <em>parcours</em></h2>
+  <div class="edu-grid">
+    <div>
+      <div class="timeline">
+        <div class="tl-item rv-l">
+          <div class="tl-dot"><i class="fas fa-code"></i></div>
+          <div>
+            <div class="tl-year">2025 - Présent</div>
+            <div class="tl-title">Développeur Web</div>
+            <div class="tl-place"><i class="fas fa-building"></i> DJIM Startup</div>
+            <div class="tl-desc">Stage professionnel en développement web. Création de sites et applications web pour clients réels.</div>
+          </div>
+        </div>
+        <div class="tl-item rv-l">
+          <div class="tl-dot"><i class="fas fa-book"></i></div>
+          <div>
+            <div class="tl-year">2025 - 2026</div>
+            <div class="tl-title">Formation Autodidacte</div>
+            <div class="tl-place"><i class="fas fa-laptop"></i> En ligne</div>
+            <div class="tl-desc">Apprentissage intensif : HTML/CSS, JavaScript, React.js, WordPress, Figma et design UI/UX.</div>
+          </div>
+        </div>
+        <div class="tl-item rv-l">
+          <div class="tl-dot"><i class="fas fa-graduation-cap"></i></div>
+          <div>
+            <div class="tl-year">2023 - 2023</div>
+            <div class="tl-title">Baccalauréat C</div>
+            <div class="tl-place"><i class="fas fa-school"></i> Yaoundé, Cameroun</div>
+            <div class="tl-desc">Obtention du baccalauréat avec intérêt marqué pour l'informatique et les technologies.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="certs">
+        <div class="cert-ttl"><i class="fas fa-award"></i> Certifications</div>
+        <div class="cert rv">
+          <div class="cert-ico"><i class="fas fa-certificate"></i></div>
+          <div>
+            <div class="cert-name">Développeur Web Fullstack</div>
+            <div class="cert-org">DJIM Startup</div>
+          </div>
+        </div>
+        <div class="cert rv">
+          <div class="cert-ico"><i class="fas fa-palette"></i></div>
+          <div>
+            <div class="cert-name">UI/UX Design Fundamentals</div>
+            <div class="cert-org">Formation autodidacte</div>
+          </div>
+        </div>
+        <!-- <div class="cert rv">
+          <div class="cert-ico"><i class="fas fa-rocket"></i></div>
+          <div>
+            <div class="cert-name">5+ Projets Réalisés</div>
+            <div class="cert-org">Clients satisfaits</div>
+          </div>
+        </div> -->
+        <div class="cert rv">
+          <div class="cert-ico"><i class="fas fa-code"></i></div>
+          <div>
+            <div class="cert-name">Maîtrise du Stack Moderne</div>
+            <div class="cert-org">React, Node.js, WordPress</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS
+<section class="sec dark" id="projects">
+  <div class="sec-tag"><i class="fas fa-project-diagram"></i>Projets</div>
+  <h2 class="sec-h">Mes <em>réalisations</em></h2>
+  <div class="proj-grid">
+    <div class="proj-card rv">
+      <div class="proj-thumb pt-restaurant">🍽️</div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag"><i class="fas fa-code"></i> HTML/CSS</span>
+          <span class="ptag"><i class="fab fa-react"></i> React</span>
+        </div>
+        <h3>Restaurant Moderne</h3>
+        <p>Site vitrine pour restaurant avec menu interactif, galerie photos et système de réservation.</p>
+        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Voir le projet</a>
+      </div>
+    </div>
+    <div class="proj-card rv">
+      <div class="proj-thumb pt-ecom">🛍️</div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag"><i class="fab fa-wordpress"></i> WordPress</span>
+          <span class="ptag"><i class="fas fa-shopping-cart"></i> WooCommerce</span>
+        </div>
+        <h3>Boutique E-Commerce</h3>
+        <p>Plateforme de vente en ligne avec panier, paiement et gestion de commandes.</p>
+        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Voir le projet</a>
+      </div>
+    </div>
+    <div class="proj-card rv">
+      <div class="proj-thumb pt-clinic">⚕️</div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag"><i class="fas fa-code"></i> HTML/CSS</span>
+          <span class="ptag"><i class="fab fa-js"></i> JavaScript</span>
+        </div>
+        <h3>Clinique Médicale</h3>
+        <p>Site professionnel pour clinique avec prise de rendez-vous en ligne et informations services.</p>
+        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Voir le projet</a>
+      </div>
+    </div>
+    <div class="proj-card wide rv">
+      <div class="proj-thumb pt-djim">✨</div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag"><i class="fas fa-star"></i> En cours</span>
+          <span class="ptag"><i class="fab fa-react"></i> React</span>
+          <span class="ptag"><i class="fas fa-database"></i> Node.js</span>
+        </div>
+        <h3>Projets DJIM Startup</h3>
+        <p>Développement de solutions web modernes pour clients de DJIM Startup. Applications React, WordPress et e-commerce en cours de réalisation.</p>
+        <a href="#contact" class="proj-cta"><i class="fas fa-arrow-right"></i>Discuter de vos besoins</a>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- WHY ME -->
+<section class="sec" id="why">
+  <div class="sec-tag"><i class="fas fa-lightbulb"></i>Pourquoi moi</div>
+  <h2 class="sec-h">Mes <em>atouts</em></h2>
+  <div class="why-grid">
+    <div class="why-card rv">
+      <div class="why-ico"><i class="fas fa-bolt"></i></div>
+      <h4>Réactif & Fiable</h4>
+      <p>Réponse rapide, respect des délais et communication transparente avec mes clients.</p>
+    </div>
+    <div class="why-card rv">
+      <div class="why-ico"><i class="fas fa-paint-brush"></i></div>
+      <h4>Design Moderne</h4>
+      <p>Interfaces attrayantes, tendances actuelles et expérience utilisateur optimale.</p>
+    </div>
+    <div class="why-card rv">
+      <div class="why-ico"><i class="fas fa-cog"></i></div>
+      <h4>Code Propre</h4>
+      <p>Code maintenable, bien structuré et optimisé pour la performance.</p>
+    </div>
+    <div class="why-card rv">
+      <div class="why-ico"><i class="fas fa-rocket"></i></div>
+      <h4>Résultats Concrets</h4>
+      <p>Sites qui génèrent des clients, augmentent les ventes et améliorent la visibilité.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec dark" id="process">
+  <div class="sec-tag"><i class="fas fa-tasks"></i>Processus</div>
+  <h2 class="sec-h">Comment je <em>travaille</em></h2>
+  <div class="process-steps">
+    <div class="ps rv">
+      <div class="ps-num">1</div>
+      <h4>Découverte</h4>
+      <p>Comprendre vos objectifs, votre audience et vos besoins spécifiques.</p>
+    </div>
+    <div class="ps rv">
+      <div class="ps-num">2</div>
+      <h4>Conception</h4>
+      <p>Créer des maquettes et prototypes pour validation avant développement.</p>
+    </div>
+    <div class="ps rv">
+      <div class="ps-num">3</div>
+      <h4>Développement</h4>
+      <p>Coder votre solution avec les meilleures technologies et pratiques.</p>
+    </div>
+    <div class="ps rv">
+      <div class="ps-num">4</div>
+      <h4>Livraison</h4>
+      <p>Tests, optimisation et déploiement avec support post-lancement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="sec-tag"><i class="fas fa-envelope"></i>Contact</div>
+  <h2 class="sec-h">Parlons de votre <em>projet</em></h2>
+  <div class="contact-grid">
+    <div class="contact-left rv-l">
+      <p>Vous avez un projet en tête ? Une question ? N'hésitez pas à me contacter. Je suis disponible pour discuter de vos besoins et vous proposer une solution adaptée.</p>
+      <div class="c-links">
+        <a href="mailto:yvangouabe@gmail.com" class="c-lnk">
+          <i class="fas fa-envelope"></i>
+          <span>yvangouabe@gmail.com</span>
+        </a>
+        <a href="tel:+237654505315" class="c-lnk">
+          <i class="fas fa-phone"></i>
+          <span>+237 6 54 50 53 15</span>
+        </a>
+        <a href="https://wa.me/237654505315" target="_blank" class="c-lnk">
+          <i class="fab fa-whatsapp"></i>
+          <span>WhatsApp</span>
+        </a>
+        <a href="https://www.linkedin.com/in/yvan-gouabe-1035963b2" target="_blank" class="c-lnk">
+          <i class="fab fa-linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://www.fiverr.com/yvangouabe/buying?source=avatar_menu_profile" target="_blank" class="c-lnk">
+          <i class="fas fa-rocket"></i>
+          <span>Fiverr</span>
+        </a>
+        <a href="https://comeup.com/fr/@yvangouabe" target="_blank" class="c-lnk">
+          <i class="fas fa-rocket"></i>
+          <span>ComeUp</span>
+        </a>
+      </div>
+    </div>
+    <div class="c-form rv-r">
+      <div>
+        <label class="f-lbl"><i class="fas fa-user"></i> Votre nom</label>
+        <input class="f-in" type="text" placeholder="Votre nom complet"/>
+      </div>
+      <div>
+        <label class="f-lbl"><i class="fas fa-envelope"></i> Votre email</label>
+        <input class="f-in" type="email" placeholder="votre@email.com"/>
+      </div>
+      <div>
+        <label class="f-lbl"><i class="fas fa-briefcase"></i> Type de projet</label>
+        <input class="f-in" type="text" placeholder="Site vitrine, boutique en ligne, app web..."/>
+      </div>
+      <div>
+        <label class="f-lbl"><i class="fas fa-comment"></i> Décrivez votre projet</label>
+        <textarea class="f-ta" placeholder="Dites-moi tout : votre activité, vos objectifs, votre budget estimé, vos délais..."></textarea>
+      </div>
+      <button class="f-send" id="sendBtn"><i class="fas fa-paper-plane"></i>Envoyer ma demande</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-copy">© 2025 <strong>GOUABE Yvan</strong> — Développeur Web Freelance · Yaoundé 🇨🇲</div>
+  <nav class="f-nav">
+    <a href="#home"><i class="fas fa-home"></i>Accueil</a>
+    <a href="#services"><i class="fas fa-briefcase"></i>Services</a>
+    <a href="#education"><i class="fas fa-graduation-cap"></i>Formation</a>
+    <!-- <a href="#projects"><i class="fas fa-project-diagram"></i>Projets</a> -->
+    <a href="#contact"><i class="fas fa-envelope"></i>Contact</a>
+  </nav>
+</footer>
+
+<script>
+/* ═══ 3D PARTICLES ═══ */
+(function(){
+  const canvas = document.getElementById('bg3d');
+  const renderer = new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(innerWidth,innerHeight);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,1000);
+  camera.position.z = 80;
+
+  // Particles
+  const N = 1600;
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(N*3);
+  const vel = new Float32Array(N*3);
+  for(let i=0;i<N;i++){
+    pos[i*3]=(Math.random()-.5)*200;
+    pos[i*3+1]=(Math.random()-.5)*200;
+    pos[i*3+2]=(Math.random()-.5)*200;
+    vel[i*3]=(Math.random()-.5)*.012;
+    vel[i*3+1]=(Math.random()-.5)*.012;
+    vel[i*3+2]=(Math.random()-.5)*.012;
+  }
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const mat = new THREE.PointsMaterial({color:0x39FF85,size:.5,transparent:true,opacity:.65,sizeAttenuation:true});
+  scene.add(new THREE.Points(geo,mat));
+
+  // Wireframe shapes
+  const dGeo = new THREE.DodecahedronGeometry(16,0);
+  const dMat = new THREE.LineBasicMaterial({color:0x39FF85,transparent:true,opacity:.1});
+  const dMesh = new THREE.LineSegments(new THREE.EdgesGeometry(dGeo),dMat);
+  scene.add(dMesh);
+
+  const iGeo = new THREE.IcosahedronGeometry(8,0);
+  const iMat = new THREE.LineBasicMaterial({color:0x00CCFF,transparent:true,opacity:.12});
+  const iMesh = new THREE.LineSegments(new THREE.EdgesGeometry(iGeo),iMat);
+  scene.add(iMesh);
+
+  let mx=0,my=0,t=0;
+  document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+  window.addEventListener('resize',()=>{
+    camera.aspect=innerWidth/innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth,innerHeight);
+  });
+
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.003;
+    dMesh.rotation.x=t*.35;dMesh.rotation.y=t*.55;
+    iMesh.rotation.x=-t*.45;iMesh.rotation.y=t*.28;
+    const p=geo.attributes.position.array;
+    for(let i=0;i<N;i++){
+      p[i*3]+=vel[i*3];p[i*3+1]+=vel[i*3+1];p[i*3+2]+=vel[i*3+2];
+      if(Math.abs(p[i*3])>100)vel[i*3]*=-1;
+      if(Math.abs(p[i*3+1])>100)vel[i*3+1]*=-1;
+      if(Math.abs(p[i*3+2])>100)vel[i*3+2]*=-1;
+    }
+    geo.attributes.position.needsUpdate=true;
+    camera.position.x+=(mx*6-camera.position.x)*.03;
+    camera.position.y+=(-my*6-camera.position.y)*.03;
+    camera.lookAt(scene.position);
+    mat.opacity=.5+.18*Math.sin(t*2);
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ═══ CURSOR ═══ */
+const dot=document.getElementById('dot'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.srv-item,.proj-card,.why-card,.cert,.c-lnk').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.8)';ring.style.opacity='0';});
+  el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='.4';});
+});
+
+/* ═══ SCROLL REVEAL ═══ */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+},{threshold:.1});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));
+
+/* ═══ NAV SCROLL EFFECT ═══ */
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  if(window.scrollY>50){
+    nav.classList.add('scrolled');
+  }else{
+    nav.classList.remove('scrolled');
+  }
+});
+
+/* ═══ FORM ═══ */
+document.getElementById('sendBtn').addEventListener('click',()=>{
+  alert('✅ Votre message a été envoyé ! Je vous réponds dans les 24h. Merci de votre confiance !');
+});
+</script>
+</body>
+</html>
