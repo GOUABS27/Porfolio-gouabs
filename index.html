@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-
-<html class="dark" lang="fr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html class="dark" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>GOUABE Yvan — Développeur Web Yaoundé</title>
-<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect fill='%23060A0E' width='100' height='100'/&gt;&lt;text x='50' y='65' font-size='70' font-weight='bold' font-family='monospace' fill='%2339FF85' text-anchor='middle'&gt;GY&lt;/text&gt;&lt;/svg&gt;" rel="icon" type="image/svg+xml"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Syne:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect fill='%23060A0E' width='100' height='100'/&gt;&lt;text x='50' y='65' font-size='70' font-weight='bold' font-family='monospace' fill='%2339FF85' text-anchor='middle'&gt;GY&lt;/text&gt;&lt;/svg&gt;" rel="icon" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Syne:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -281,9 +279,9 @@
 </style>
 </head>
 <body class="bg-surface-main text-on-surface font-body-md antialiased selection:bg-primary-container selection:text-on-primary">
-<canvas id="bg3d"></canvas>
-<div id="dot"></div>
-<div id="ring"></div>
+<canvas id="bg3d" width="1280" height="5179" style="width: 1280px; height: 5179px;"></canvas>
+<div id="dot" style="left: 338px; top: 2476px; transform: translate(-50%, -50%) scale(1);"></div>
+<div id="ring" style="left: 338px; top: 2476px;"></div>
 <!-- NAV -->
 <nav class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300" id="navbar">
 <div class="max-w-container-max mx-auto px-6 md:px-12 h-20 flex justify-between items-center">
@@ -292,10 +290,10 @@
       GY<span class="text-on-surface">.</span>
 </a>
 <ul class="hidden md:flex items-center gap-8">
-<li><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#about">À PROPOS<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
-<li><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#services">SERVICES<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
-<li><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#education">FORMATION<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
-<li><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#contact">CONTACT<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
+<li class=""><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#about">À PROPOS<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
+<li class=""><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#services">SERVICES<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
+<li class=""><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#education">FORMATION<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
+<li class=""><a class="font-label-caps text-on-surface-variant hover:text-primary-container transition-colors relative group hover-target" href="#contact">CONTACT<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-container transition-all group-hover:w-full"></span></a></li>
 </ul>
 <a class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 border border-primary-container text-primary-container font-label-caps hover:bg-primary-container hover:text-surface-main transition-all hover-target" href="#contact">
 <span class="material-symbols-outlined text-sm">mail</span>
@@ -309,13 +307,13 @@
 <!-- HERO -->
 <section class="min-h-screen pt-32 pb-20 px-6 md:px-12 flex items-center relative z-10" id="home">
 <div class="max-w-container-max mx-auto w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-<div class="lg:col-span-7 rv-l">
+<div class="lg:col-span-7 rv-l on">
 <div class="inline-flex items-center gap-3 font-label-caps text-primary-container mb-8 border border-primary-container/20 px-4 py-2 rounded-full glass-card">
 <span class="w-2 h-2 rounded-full bg-primary-container animate-blink"></span>
         DISPONIBLE POUR DES MISSIONS
       </div>
 <h1 class="font-headline-xl text-5xl md:text-7xl lg:text-[80px] mb-6 leading-[1.1]">
-        Développeur<br/>
+        Développeur<br>
 <span class="text-stroke">Web &amp;</span>
 <span class="text-gradient">Apps</span>
 </h1>
@@ -347,7 +345,7 @@
 </div>
 </div>
 </div>
-<div class="lg:col-span-5 flex justify-center lg:justify-end rv-r">
+<div class="lg:col-span-5 flex justify-center lg:justify-end rv-r on">
 <div class="relative w-72 md:w-80 h-[400px] md:h-[460px] group">
 <!-- Cyber Frame -->
 <div class="absolute inset-0 border border-primary-container/30 transition-all duration-500 group-hover:border-primary-container group-hover:shadow-[0_0_30px_rgba(57,255,133,0.2)]">
@@ -357,7 +355,7 @@
 <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary-container"></div>
 </div>
 <div class="absolute inset-2 overflow-hidden bg-surface-elevated filter grayscale contrast-125 transition-all duration-500 group-hover:grayscale-0 group-hover:contrast-100">
-<img alt="GOUABE Yvan" class="w-full h-full object-cover object-[center_20%] opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGIGplA0_ErwVlvXtcvmjZT0s1h_-muVR612N3Lx_UgXQfOluMqnZ9-kfcyJSwzo7gu-Ss3wFK2lhhVw9eiOtEk1a-Qa834F5ISQMvNUYNVGxpqTrgOVDXYbYcoHJvxi9-U7VQtfNaKtMLg_qWM-vTND7BVQycEsLcRUWbf4VX-ykycCvCE8mStTdnZxx7sLnQ4V-WTmhqieJ7XjRjfdqtLSWJT4QoINaLIHqrC4EDZLlx_Rj3bXT5TTP4vxQbBzBz63_Ta4A8fkm-"/>
+<img alt="GOUABE Yvan" class="w-full h-full object-cover object-[center_20%] opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGIGplA0_ErwVlvXtcvmjZT0s1h_-muVR612N3Lx_UgXQfOluMqnZ9-kfcyJSwzo7gu-Ss3wFK2lhhVw9eiOtEk1a-Qa834F5ISQMvNUYNVGxpqTrgOVDXYbYcoHJvxi9-U7VQtfNaKtMLg_qWM-vTND7BVQycEsLcRUWbf4VX-ykycCvCE8mStTdnZxx7sLnQ4V-WTmhqieJ7XjRjfdqtLSWJT4QoINaLIHqrC4EDZLlx_Rj3bXT5TTP4vxQbBzBz63_Ta4A8fkm-">
 <!-- Glitch Overlay -->
 <div class="absolute inset-0 bg-primary-container/5 mix-blend-overlay pointer-events-none"></div>
 </div>
@@ -398,20 +396,20 @@
 <!-- ABOUT -->
 <section class="py-24 px-6 md:px-12 relative z-10" id="about">
 <div class="max-w-container-max mx-auto">
-<div class="flex items-center gap-4 mb-12 rv">
+<div class="flex items-center gap-4 mb-12 rv on">
 <div class="h-[1px] w-12 bg-primary-container"></div>
 <span class="font-label-caps text-primary-container">01. QUI SUIS-JE</span>
 </div>
 <div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
-<div class="rv-l">
+<div class="rv-l on">
 <h2 class="font-headline-lg text-4xl md:text-5xl mb-8">
-          Passionné par le<br/>
+          Passionné par le<br>
 <span class="text-gradient font-bold italic">web depuis toujours</span>
 </h2>
 <div class="space-y-6 text-on-surface-variant font-body-md text-base leading-relaxed mb-10">
-<p>Je suis <span class="text-on-surface font-bold">GOUABE Yvan</span>, développeur web freelance de 19 ans basé à <span class="text-on-surface font-bold">Yaoundé, Cameroun</span>. Autodidacte ambitieux, j'ai acquis mes compétences par la pratique et l'apprentissage continu.</p>
-<p>Ma mission est d'aider les <span class="text-on-surface font-bold">entreprises camerounaises et internationales</span> à avoir une présence web sérieuse et moderne qui génère des clients et de la croissance.</p>
-<p>Chaque projet est une occasion de créer quelque chose d'unique avec du code propre, un design soigné et une vraie compréhension des besoins du client.</p>
+<p class="">Je suis <span class="text-on-surface font-bold">GOUABE Yvan</span>, développeur web freelance de 19 ans basé à <span class="text-on-surface font-bold">Yaoundé, Cameroun</span>. Autodidacte ambitieux, j'ai acquis mes compétences par la pratique et l'apprentissage continu.</p>
+<p class="">Ma mission est d'aider les <span class="text-on-surface font-bold">entreprises camerounaises et internationales</span> à avoir une présence web sérieuse et moderne qui génère des clients et de la croissance.</p>
+<p class="">Chaque projet est une occasion de créer quelque chose d'unique avec du code propre, un design soigné et une vraie compréhension des besoins du client.</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div class="glass-card p-4 border-l-2 border-l-primary-container/50 hover:border-l-primary-container transition-colors">
@@ -440,7 +438,7 @@
 </div>
 </div>
 </div>
-<div class="rv-r">
+<div class="rv-r on">
 <div class="glass-card p-8 border border-glass-border relative overflow-hidden group">
 <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary-container/50 to-transparent"></div>
 <h3 class="font-label-caps text-primary-container mb-8 flex items-center gap-2">
@@ -450,42 +448,42 @@
 <div class="space-y-6">
 <div>
 <div class="flex justify-between font-code-snippet text-sm mb-2 text-on-surface">
-<span>HTML / CSS</span>
+<span class="">HTML / CSS</span>
 <span class="text-primary-container">95%</span>
 </div>
 <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
 </div>
 <div>
 <div class="flex justify-between font-code-snippet text-sm mb-2 text-on-surface">
-<span>JavaScript</span>
+<span class="">JavaScript</span>
 <span class="text-primary-container">80%</span>
 </div>
 <div class="skill-bar"><div class="skill-fill" style="width: 80%; transition-delay: 0.1s;"></div></div>
 </div>
 <div>
 <div class="flex justify-between font-code-snippet text-sm mb-2 text-on-surface">
-<span>React.js</span>
+<span class="">React.js</span>
 <span class="text-primary-container">72%</span>
 </div>
 <div class="skill-bar"><div class="skill-fill" style="width: 72%; transition-delay: 0.2s;"></div></div>
 </div>
 <div>
 <div class="flex justify-between font-code-snippet text-sm mb-2 text-on-surface">
-<span>WordPress</span>
+<span class="">WordPress</span>
 <span class="text-primary-container">90%</span>
 </div>
 <div class="skill-bar"><div class="skill-fill" style="width: 90%; transition-delay: 0.3s;"></div></div>
 </div>
 <div>
 <div class="flex justify-between font-code-snippet text-sm mb-2 text-on-surface">
-<span>Figma / UI Design</span>
+<span class="">Figma / UI Design</span>
 <span class="text-primary-container">72%</span>
 </div>
 <div class="skill-bar"><div class="skill-fill" style="width: 72%; transition-delay: 0.4s;"></div></div>
 </div>
 <div>
 <div class="flex justify-between font-code-snippet text-sm mb-2 text-on-surface">
-<span>Node.js / SQL</span>
+<span class="">Node.js / SQL</span>
 <span class="text-primary-container">65%</span>
 </div>
 <div class="skill-bar"><div class="skill-fill" style="width: 65%; transition-delay: 0.5s;"></div></div>
@@ -497,17 +495,56 @@
 </div>
 </section>
 <!-- SERVICES -->
-<section class="py-24 px-6 md:px-12 bg-surface-elevated/50 relative z-10 border-y border-glass-border" id="services">
+<section class="py-24 px-6 md:px-12 relative z-10" id="projects">
 <div class="max-w-container-max mx-auto">
-<div class="flex items-center gap-4 mb-4 rv">
+<div class="flex items-center gap-4 mb-4 rv on">
 <div class="h-[1px] w-12 bg-primary-container"></div>
-<span class="font-label-caps text-primary-container">02. SERVICES</span>
+<span class="font-label-caps text-primary-container">02. PROJETS RÉCENTS</span>
 </div>
-<h2 class="font-headline-lg text-4xl md:text-5xl mb-16 rv">
+<h2 class="font-headline-lg text-4xl md:text-5xl mb-16 rv on">
+      Mes dernières <span class="text-gradient italic font-bold">réalisations</span>
+</h2>
+<div class="grid grid-cols-1 lg:grid-cols-1 gap-12">
+<!-- Project Card: INFO PLUS -->
+<div class="glass-card overflow-hidden border border-glass-border hover:border-primary-container/30 transition-all duration-500 group rv on">
+<div class="grid lg:grid-cols-2 gap-0">
+<!-- Image Side -->
+<div class="relative h-64 lg:h-full overflow-hidden">
+<img alt="INFO PLUS Screenshot" class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYKANgMpmxQgM5KTTEBhsVW5LccmlsZvbJBe2Kq4ZhH1MONEvp9ntxSeA122Vwm7yWXsRU2xsMbwlCfv4JlWS_2BOVwQUCrGnjpa4L7U1qc-Eyt1vPsgrzgQw6qA1mrL3H_Hnn7a_34mIm7eB0ngP8klVAxz3oB-NLzD9QH6ti4yicu1XsfTSJU0eK6ZC84vbStgwTgk4AyMyWLS4DVaQiylQtGAfexEauFoI8cS1jYnMmhI_qA-Wp5KQclen9u6qm9Y4">
+<div class="absolute inset-0 bg-primary-container/10 mix-blend-overlay"></div>
+</div>
+<!-- Content Side -->
+<div class="p-8 lg:p-12 flex flex-col justify-center">
+<div class="font-code-snippet text-xs text-primary-container mb-4">PROJET_01</div>
+<h3 class="font-headline-md text-3xl mb-6 text-on-surface">INFO PLUS</h3>
+<p class="font-body-md text-on-surface-variant text-base mb-8 leading-relaxed">
+              Plateforme d'information en continu traitant de politique, économie et culture. Site web d'actualités performant avec gestion de contenu dynamique.
+            </p>
+<div class="flex flex-wrap gap-3 mb-10">
+<span class="px-3 py-1 border border-primary-container/20 text-primary-container font-code-snippet text-[10px] rounded-full bg-primary-container/5">WORDPRESS</span>
+<span class="px-3 py-1 border border-primary-container/20 text-primary-container font-code-snippet text-[10px] rounded-full bg-primary-container/5">SEO</span>
+<span class="px-3 py-1 border border-primary-container/20 text-primary-container font-code-snippet text-[10px] rounded-full bg-primary-container/5">RESPONSIVE DESIGN</span>
+</div>
+<a class="inline-flex items-center gap-3 px-6 py-3 border border-primary-container text-primary-container font-label-caps hover:bg-primary-container hover:text-surface-main transition-all w-max hover-target" href="https://infosplus360.com/" target="_blank">
+              VOIR LE PROJET
+              <span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section class="py-24 px-6 md:px-12 bg-surface-elevated/50 relative z-10 border-y border-glass-border" id="services">
+<div class="max-w-container-max mx-auto">
+<div class="flex items-center gap-4 mb-4 rv on">
+<div class="h-[1px] w-12 bg-primary-container"></div>
+<span class="font-label-caps text-primary-container">03. SERVICES</span>
+</div>
+<h2 class="font-headline-lg text-4xl md:text-5xl mb-16 rv on">
       Ce que je <span class="text-gradient italic font-bold">propose</span>
 </h2>
 <div class="grid md:grid-cols-3 gap-6">
-<div class="glass-card p-8 border border-glass-border hover:border-primary-container/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(57,255,133,0.05)] rv hover-target">
+<div class="glass-card p-8 border border-glass-border hover:border-primary-container/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(57,255,133,0.05)] rv hover-target on">
 <div class="font-code-snippet text-xs text-primary-container mb-6 opacity-60">SRV_01</div>
 <span class="material-symbols-outlined text-4xl text-primary-container mb-6 group-hover:scale-110 transition-transform">language</span>
 <h3 class="font-headline-md text-xl mb-4 text-on-surface">Sites Vitrines</h3>
@@ -516,7 +553,7 @@
           EN SAVOIR PLUS <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
 </a>
 </div>
-<div class="glass-card p-8 border border-glass-border hover:border-primary-container/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(57,255,133,0.05)] rv" style="transition-delay: 0.1s;">
+<div class="glass-card p-8 border border-glass-border hover:border-primary-container/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(57,255,133,0.05)] rv on" style="transition-delay: 0.1s;">
 <div class="font-code-snippet text-xs text-primary-container mb-6 opacity-60">SRV_02</div>
 <span class="material-symbols-outlined text-4xl text-primary-container mb-6 group-hover:scale-110 transition-transform">shopping_cart</span>
 <h3 class="font-headline-md text-xl mb-4 text-on-surface">E-Commerce</h3>
@@ -525,7 +562,7 @@
           EN SAVOIR PLUS <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
 </a>
 </div>
-<div class="glass-card p-8 border border-glass-border hover:border-primary-container/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(57,255,133,0.05)] rv" style="transition-delay: 0.2s;">
+<div class="glass-card p-8 border border-glass-border hover:border-primary-container/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(57,255,133,0.05)] rv on" style="transition-delay: 0.2s;">
 <div class="font-code-snippet text-xs text-primary-container mb-6 opacity-60">SRV_03</div>
 <span class="material-symbols-outlined text-4xl text-primary-container mb-6 group-hover:scale-110 transition-transform">smartphone</span>
 <h3 class="font-headline-md text-xl mb-4 text-on-surface">Applications Web</h3>
@@ -540,16 +577,16 @@
 <!-- FORMATION & EXP -->
 <section class="py-24 px-6 md:px-12 relative z-10" id="education">
 <div class="max-w-container-max mx-auto">
-<div class="flex items-center gap-4 mb-4 rv">
+<div class="flex items-center gap-4 mb-4 rv on">
 <div class="h-[1px] w-12 bg-primary-container"></div>
-<span class="font-label-caps text-primary-container">03. EXPÉRIENCE</span>
+<span class="font-label-caps text-primary-container">04. EXPÉRIENCE</span>
 </div>
-<h2 class="font-headline-lg text-4xl md:text-5xl mb-16 rv">
+<h2 class="font-headline-lg text-4xl md:text-5xl mb-16 rv on">
       Mon <span class="text-gradient italic font-bold">parcours</span>
 </h2>
 <div class="grid lg:grid-cols-2 gap-16">
 <div class="relative border-l border-glass-border ml-4 md:ml-6 space-y-12">
-<div class="relative pl-8 md:pl-12 rv-l">
+<div class="relative pl-8 md:pl-12 rv-l on">
 <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-surface-main border border-primary-container ring-4 ring-surface-main"></div>
 <div class="font-code-snippet text-xs text-primary-container mb-2">[ 2025 - Présent ]</div>
 <h3 class="font-headline-md text-xl text-on-surface mb-1">Développeur Web</h3>
@@ -558,7 +595,7 @@
           </div>
 <p class="font-body-md text-sm text-on-surface-variant">Stage professionnel en développement web. Création de sites et applications web pour clients réels.</p>
 </div>
-<div class="relative pl-8 md:pl-12 rv-l" style="transition-delay: 0.1s;">
+<div class="relative pl-8 md:pl-12 rv-l on" style="transition-delay: 0.1s;">
 <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-surface-main border border-primary-container ring-4 ring-surface-main"></div>
 <div class="font-code-snippet text-xs text-primary-container mb-2">[ 2025 - 2026 ]</div>
 <h3 class="font-headline-md text-xl text-on-surface mb-1">Formation Autodidacte</h3>
@@ -567,7 +604,7 @@
           </div>
 <p class="font-body-md text-sm text-on-surface-variant">Apprentissage intensif : HTML/CSS, JavaScript, React.js, WordPress, Figma et design UI/UX.</p>
 </div>
-<div class="relative pl-8 md:pl-12 rv-l" style="transition-delay: 0.2s;">
+<div class="relative pl-8 md:pl-12 rv-l on" style="transition-delay: 0.2s;">
 <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-surface-main border border-glass-border ring-4 ring-surface-main"></div>
 <div class="font-code-snippet text-xs text-on-surface-variant mb-2">[ 2023 - 2023 ]</div>
 <h3 class="font-headline-md text-xl text-on-surface/80 mb-1">Baccalauréat C</h3>
@@ -577,11 +614,8 @@
 <p class="font-body-md text-sm text-on-surface-variant/80">Obtention du baccalauréat avec intérêt marqué pour l'informatique et les technologies.</p>
 </div>
 </div>
-<div class="rv-r">
-<h3 class="font-label-caps text-primary-container mb-8 flex items-center gap-2">
-<span class="material-symbols-outlined text-base">workspace_premium</span>
-          CERTIFICATIONS
-        </h3>
+<div class="rv-r on">
+<h3 class="font-label-caps text-primary-container mb-8 flex items-center gap-2">04. EXPÉRIENCE</h3>
 <div class="space-y-4">
 <div class="glass-card p-5 border border-glass-border flex items-center gap-5 hover:border-primary-container/30 transition-colors group">
 <div class="w-10 h-10 rounded-sm bg-primary-container/10 flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-surface-main transition-colors">
@@ -618,12 +652,12 @@
 <!-- CONTACT -->
 <section class="py-24 px-6 md:px-12 relative z-10 border-t border-glass-border bg-surface-elevated/30" id="contact">
 <div class="max-w-container-max mx-auto">
-<div class="flex items-center gap-4 mb-4 rv">
+<div class="flex items-center gap-4 mb-4 rv on">
 <div class="h-[1px] w-12 bg-primary-container"></div>
-<span class="font-label-caps text-primary-container">04. CONTACT</span>
+<span class="font-label-caps text-primary-container">05. CONTACT</span>
 </div>
 <div class="grid lg:grid-cols-2 gap-16">
-<div class="rv-l">
+<div class="rv-l on">
 <h2 class="font-headline-lg text-4xl md:text-5xl mb-8">
           Parlons de votre <span class="text-gradient italic font-bold">projet</span>
 </h2>
@@ -649,30 +683,27 @@
 </div>
 </div>
 </div>
-<div class="rv-r">
+<div class="rv-r on">
 <form class="glass-card p-8 border border-glass-border space-y-6">
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="font-code-snippet text-xs text-on-surface-variant uppercase tracking-widest flex items-center gap-2"><span class="material-symbols-outlined text-sm">person</span> Votre nom</label>
-<input class="w-full bg-surface-main/50 border border-glass-border text-on-surface font-body-md text-sm p-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all hover-target" placeholder="John Doe" type="text"/>
+<input class="w-full bg-surface-main/50 border border-glass-border text-on-surface font-body-md text-sm p-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all hover-target" placeholder="John Doe" type="text">
 </div>
 <div class="space-y-2">
 <label class="font-code-snippet text-xs text-on-surface-variant uppercase tracking-widest flex items-center gap-2"><span class="material-symbols-outlined text-sm">alternate_email</span> Votre email</label>
-<input class="w-full bg-surface-main/50 border border-glass-border text-on-surface font-body-md text-sm p-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all hover-target" placeholder="john@example.com" type="email"/>
+<input class="w-full bg-surface-main/50 border border-glass-border text-on-surface font-body-md text-sm p-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all hover-target" placeholder="john@example.com" type="email">
 </div>
 </div>
 <div class="space-y-2">
 <label class="font-code-snippet text-xs text-on-surface-variant uppercase tracking-widest flex items-center gap-2"><span class="material-symbols-outlined text-sm">work</span> Type de projet</label>
-<input class="w-full bg-surface-main/50 border border-glass-border text-on-surface font-body-md text-sm p-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all hover-target" placeholder="Site vitrine, E-commerce..." type="text"/>
+<input class="w-full bg-surface-main/50 border border-glass-border text-on-surface font-body-md text-sm p-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all hover-target" placeholder="Site vitrine, E-commerce..." type="text">
 </div>
 <div class="space-y-2">
 <label class="font-code-snippet text-xs text-on-surface-variant uppercase tracking-widest flex items-center gap-2"><span class="material-symbols-outlined text-sm">chat</span> Message</label>
 <textarea class="w-full bg-surface-main/50 border border-glass-border text-on-surface font-body-md text-sm p-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all resize-none hover-target" placeholder="Décrivez votre projet..." rows="4"></textarea>
 </div>
-<button class="w-full py-4 bg-primary-container/10 border border-primary-container text-primary-container font-label-caps hover:bg-primary-container hover:text-surface-main transition-all flex items-center justify-center gap-2 hover-target" type="button">
-<span class="material-symbols-outlined text-sm">send</span>
-            ENVOYER LE MESSAGE
-          </button>
+<button class="w-full py-4 bg-primary-container/10 border border-primary-container text-primary-container font-label-caps hover:bg-primary-container hover:text-surface-main transition-all flex items-center justify-center gap-2 hover-target" type="button">05. CONTACT</button>
 </form>
 </div>
 </div>
@@ -922,4 +953,6 @@ window.addEventListener('scroll', () => {
   }
 });
 </script>
+
+
 </body></html>
